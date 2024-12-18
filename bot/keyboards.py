@@ -3,11 +3,11 @@ from services.dnd_api import get_from_dnd_api
 
 
 def main_menu_keyboard():
-    keyboard = InlineKeyboardMarkup()
-    keyboard.row(InlineKeyboardButton('Создать персонажа',
+keyboard = InlineKeyboardMarkup()
+keyboard.row(InlineKeyboardButton('Create a character',
                                       callback_data='create_character'),
-                 InlineKeyboardButton('Помощь', callback_data='help'))
-    return keyboard
+                 InlineKeyboardButton('Help', callback_data='help'))
+return keyboard
 
 
 def race_keyboard():
