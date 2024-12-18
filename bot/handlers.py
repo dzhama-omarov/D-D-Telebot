@@ -47,7 +47,7 @@ bot.send_message(message.chat.id , 'Greetings to you!\n'
                          'If you want to know what I can do, click "Help"',
                          reply_markup=main_menu_keyboard())
 
-    @bot.message_handler(state=BotStates.WAITING_FOR_NAME)
+    @bot.message_handler(state=BotStates.WAITING_FOR_NAME, content_type=['text'])
 def set_name(message):
 "'This function is called when the user sends any
         text for entering the name of the hero.
