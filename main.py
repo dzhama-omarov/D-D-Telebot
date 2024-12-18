@@ -16,5 +16,5 @@ register_handlers(bot)
 
 
 if __name__ == "__main__":
-    print("\nБот запущен...")
+    print("\nBot started...")
     bot.infinity_polling()
