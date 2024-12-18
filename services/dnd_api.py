@@ -1,39 +1,39 @@
 import requests
 from loguru import logger
 
-# Базовый URL для API
+# The base URL for the API
 BASE_URL = 'https://www.dnd5eapi.co/api/'
 
 
 def get_from_dnd_api(endpoint: str = '') -> tuple[int, list]:
     """
-    Делает GET-запрос к D&D 5e API и возвращает количество и
-    список результатов.
+Makes a GET request to the D&D 5e API and returns the number and
+list of results.
 
-    :param endpoint: Конечная точка API (например, 'spells', 'classes').
-    :return: Кортеж, содержащий количество результатов (int) и список
-    (list).
-    :raises: Exception, если статус-код ответа не равен 200.
-    """
-    url = '{}/{}'.format(BASE_URL.rstrip('/'), endpoint)
-    try:
+    :param endpoint: API endpoint (for example, 'spells', 'classes').
+    :return: A tuple containing the number of results (int) and a list
+(list).
+    :raises: Exception if the response status code is not 200.
+"""
+url = '{}/{}'.format(BASE_URL.rstrip('/'), endpoint)
+try:
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()
             if 'count' in data and 'results' in data:
-                logger.info('Успешный запрос к {}. Получено {} записей.'
+                logger.info ('Successful request to {}. {} records received.'
                             .format(endpoint, data['count']))
                 return data['count'], data['results']
             else:
-                logger.error('Некорректный формат данных при запросе к {}.'
-                             .format(endpoint))
-                raise ValueError('Некорректный формат данных в ответе API.')
+logger.error('Invalid data format when requesting to {}.'
+.format(endpoint))
+raise ValueError('Invalid data format in the API response.')
         else:
-            logger.error('Ошибка API: статус-код {} при запросе к {}.'
-                         .format(response.status_code, endpoint))
-            raise Exception('Ошибка API: статус-код {}'
+            logger.error('API error: status code {} when requesting to {}.'
+.format(response.status_code, endpoint))
+raise Exception('API error: status code {}'
                             .format(response.status_code))
     except Exception as e:
-        logger.exception('Исключение при запросе к {}: {}'
+        logger.exception('Exception when requesting to {}: {}'
                          .format(endpoint, e))
         raise
